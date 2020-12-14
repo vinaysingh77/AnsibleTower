@@ -1,0 +1,46 @@
+Name: Play to install httpd and configure
+  hosts: ms01
+  user: devops
+  tasks:
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: present
+
+    - name: start and enable service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: add a content in index.html
+      copy:
+        content: "This website belongs to our SoftwareONE Team"
+        dest: /var/www/html/index.html
+
+    - name: Install firewall package
+      yum:
+        name: firewalld
+        state: present
+
+    - name: start and enable service
+      service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: add httpd process in firewall
+      firewalld:
+        service: http
+        state: enabled
+        immediate: true
+        permanent: true
+
+- name: Second play to check the website
+  hosts: localhost
+  become: false
+  tasks:
+    - name: check the website
+      uri:
+        url: http://ms01
+        status_code: 200
