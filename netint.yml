@@ -12,5 +12,5 @@
          $network = $ip.substring(0,$sep)
          if($network -eq "10.0.2")
          {
-         Rename-NetAdapter -Name $Ealias -NewName "NET-ISN"
+         Rename-NetAdapter -Name $Ealias -NewName "NETWORK-1"
          }
