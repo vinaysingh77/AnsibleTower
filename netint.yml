@@ -10,7 +10,7 @@
          $Ealias = $ipconfig.InterfaceAlias
          $sep = $ip.lastindexof(".")
          $network = $ip.substring(0,$sep)
-         if($network -like "10.0.2.")
+         if($network -like "10.0.2")
          {
          Rename-NetAdapter -Name $Ealias -NewName "NET-ISN"
          }
