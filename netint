@@ -1,0 +1,16 @@
+---
+- name: play to label network interfaces
+  hosts: all
+  tasks:
+  - name: play to label network interface
+    win_shell: |
+         $ipconfig = ""
+         $ipconfig = Get-NetIPConfiguration
+         $ip = $ipconfig.IPv4Address.IPAddress
+         $Ealias = $ipconfig.InterfaceAlias
+         $sep = $ip.lastindexof(".")
+         $network = $ip.substring(0,$sep)
+         if($network -eq "10.0.")
+         {
+         Rename-NetAdapter -Name $Ealias -NewName "NET-ISN"
+         }
